@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function App() {
 
@@ -16,13 +16,20 @@ export default function App() {
     {name:'Riyad', id:10}
   ])
   
+  const clickHandler = (id) => {
+    let afterRemovePeople = peoples.filter( (people) => people.id != id )
+    setPeoples(afterRemovePeople);
+  }
+  
   return (
     <View style={styles.container}>
         <FlatList
           data={peoples}
           keyExtractor = { (item) => item.id }
           renderItem = { ( {item} ) => (
-            <Text style={styles.item}>{item.name}</Text>
+            <TouchableOpacity onPress={ () => clickHandler(item.id)  }>
+               <Text style={styles.item}>{item.name}</Text>
+            </TouchableOpacity>            
           )}
         />
     </View>
